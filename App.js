@@ -14,7 +14,10 @@ import {
   View,
 } from 'react-native';
 
+import SplashScreen from 'react-native-splash-screen'
+
 const App = () => {
+	SplashScreen.hide();
 
   return (
 	  <View>
