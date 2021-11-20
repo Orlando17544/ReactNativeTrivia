@@ -19,6 +19,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import WelcomeScreen from './src/screens/WelcomeScreen.js';
 import NameScreen from './src/screens/NameScreen.js';
+import MainScreen from './src/screens/MainScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,11 +27,12 @@ const App = () => {
 
 	return (
 		<NavigationContainer>
-		<Stack.Navigator initialRouteName="Name" 
+		<Stack.Navigator initialRouteName="Main" 
 		screenOptions={{
 			headerShown: false
 		}}
 		>
+		<Stack.Screen name="Main" component={MainScreen} />
 		<Stack.Screen name="Name" component={NameScreen} />
 		<Stack.Screen name="Welcome" component={WelcomeScreen} />
 		</Stack.Navigator>
