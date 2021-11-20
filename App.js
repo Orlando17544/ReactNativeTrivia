@@ -18,6 +18,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import WelcomeScreen from './src/screens/WelcomeScreen.js';
+import NameScreen from './src/screens/NameScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,12 @@ const App = () => {
 
 	return (
 		<NavigationContainer>
-		<Stack.Navigator initialRouteName="Welcome">
+		<Stack.Navigator initialRouteName="Name" 
+		screenOptions={{
+			headerShown: false
+		}}
+		>
+		<Stack.Screen name="Name" component={NameScreen} />
 		<Stack.Screen name="Welcome" component={WelcomeScreen} />
 		</Stack.Navigator>
 		</NavigationContainer>

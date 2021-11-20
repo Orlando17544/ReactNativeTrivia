@@ -13,7 +13,8 @@ import {
 	Text,
 	View,
 	ImageBackground,
-	TouchableOpacity
+	TouchableOpacity,
+	TextInput
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen';
@@ -54,7 +55,7 @@ ocarina.setNumberOfLoops(100);
 
 */
 
-const WelcomeScreen = () => {
+const NameScreen = () => {
 	const [colorMan, setColorMan] = useState('white');
 	const [colorWoman, setColorWoman] = useState('white');
 	const [colorOther, setColorOther] = useState('white');
@@ -244,129 +245,17 @@ const WelcomeScreen = () => {
 			resizeMode="cover"
 		>
 		<View style={{ alignItems: 'center' }}>
-			<Text style={[ styles.text, {textAlign: 'center'} ]}>1 / 2</Text>
-			<Text style={[ styles.text, styles.textTitle, {textAlign: 'center'} ]}>We would like to know you{"\n"}better!</Text>
+			<Text style={[ styles.text, {textAlign: 'center'} ]}>2 / 2</Text>
+			<Text style={[ styles.text, styles.textTitle, {textAlign: 'center'} ]}>Please, enter your name</Text>
+			<Text style={[ styles.text, {textAlign: 'center'} ]}>It will be used in the game</Text>
 		</View>
-		<View style={{ marginHorizontal: '5%' }}>
-		<View>
-			<Text style={[ styles.text, {color: colorGender} ]}>Your gender identity: </Text>
-			<View style={ styles.optionsButtonsContainer }>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorMan} ]}
-					onPress={() => {activateOption('man')}}
-				>
-					<Ionicons name="male" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Man</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorWoman, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('woman')}}
-				>
-					<Ionicons name="female" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Woman</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorOther, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('other')}}
-				>
-					<Ionicons name="male-female" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Other</Text>
-				</TouchableOpacity>
-			</View>
-		</View>
-		<View style={{ marginTop: '5%' }}>
-			<Text style={[ styles.text, {color: colorInterest} ]}>Your interests (at least 3): </Text>
-			<View style={ styles.optionsButtonsContainer }>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorTechnologyScience} ]}
-					onPress={() => {activateOption('technologyScience')}}
-				>
-					<MaterialIcons name="science" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Science</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorPopCulture, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('popCulture')}}
-				>
-					<FontAwesome name="hand-rock-o" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Pop culture</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorCarsSports, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('carsSports')}}
-				>
-					<MaterialIcons name="sports-soccer" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Sports</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorGameRiddles, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('gameRiddles')}}
-				>
-					<MaterialIcons name="videogame-asset" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Game</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={ styles.optionsButtonsContainer }>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorHealthCooking} ]}
-					onPress={() => {activateOption('healthCooking')}}
-				>
-					<MaterialIcons name="healing" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Health</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorGeographyHistory, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('geographyHistory')}}
-				>
-					<Entypo name="back-in-time" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>History</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorMusicLiterature, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('musicLiterature')}}
-				>
-					<Ionicons name="musical-notes" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Music</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorReligionCulture, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('religionCulture')}}
-				>
-					<FontAwesome5 name="cross" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Religion</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={ styles.optionsButtonsContainer }>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorFashionDesign} ]}
-					onPress={() => {activateOption('fashionDesign')}}
-				>
-					<MaterialIcons name="design-services" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Design</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorLawPolitics, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('lawPolitics')}}
-				>
-					<Octicons name="law" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Law</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorAnimal, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('animal')}}
-				>
-					<MaterialCommunityIcons name="elephant" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Animal</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: colorBusiness, marginLeft: '3%'} ]}
-					onPress={() => {activateOption('business')}}
-				>
-					<MaterialIcons name="business" size={20} color="black" />
-					<Text style={ styles.textOptionsButtons }>Business</Text>
-				</TouchableOpacity>
-			</View>
-		</View>
+		<View style={{ alignItems: 'center' }}>
+			<TextInput
+				textAlign='left'
+				placeholder="Your name"
+				style={{ height: '25%', width: '60%', backgroundColor: 'white', borderRadius: 5 }}
+			/>
+			<Text style={[ styles.text, { marginTop: '5%' }]}>You can come back to this step later</Text>
 		</View>
 		<View style={{ alignItems: 'center' }}>
 			<TouchableOpacity
@@ -396,7 +285,6 @@ const styles = StyleSheet.create({
 	text: {
 		fontSize: 15, 
 		color: 'black',
-		fontWeight: 'bold'
 	},
 	textTitle: {
 		fontWeight: 'bold',
@@ -420,4 +308,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default WelcomeScreen;
+export default NameScreen;
