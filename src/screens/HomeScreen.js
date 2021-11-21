@@ -21,31 +21,36 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = () => {
-	const [colorMan, setColorMan] = useState('white');
-
-	function activateOption(option) {
-		console.log('hola');
-	}
 
 	return (
 		<View style={ styles.container }>
 		<ImageBackground
-		        source={require('../../assets/backgroundImage.png')}
+		        source={require('../../assets/mainImage.jpg')}
 			style={ styles.imageBackgroundContainer }
 			resizeMode="cover"
 		>
+		{/*
 		<Image
 			source={require('../../assets/profile.png')}
-		/>
+		/>}*/}
 		</ImageBackground>
+		<TouchableOpacity style={{ flex: 2 }}>
+			<Text>Play</Text>
+		</TouchableOpacity>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		justifyContent: 'center'
 	},
+	imageBackgroundContainer: {
+		flex: 1,
+		height: '100%',
+		width: '100%'
+	}
 });
 
 export default HomeScreen;
