@@ -42,13 +42,17 @@ const HomeScreen = () => {
 			style={ styles.profileImage }
 			resizeMode="contain"
 		/>
+		<Text style={{ flex: 1, fontSize: 25, color: 'black', textAlign: 'center', fontWeight: 'bold' }}>Player</Text>
 		</ImageBackground>
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e5e7e2' }}>
 		<TouchableOpacity style={{ backgroundColor: '#19ba50', borderRadius: 5, paddingHorizontal: '40%', paddingVertical: '3%' }}>
 			<Text style={{ fontSize: 18, color: 'white' }}>Play</Text>
 		</TouchableOpacity>
 		</View>
-		<Tab.Navigator style={{ flex: 7 }} >
+		<Tab.Navigator style={{ flex: 7 }} screenOptions={{
+			tabBarStyle: { backgroundColor: '#e5e7e2' }
+		}}
+		>
 		      <Tab.Screen name="Categories" component={CategoriesScreen} options={{ tabBarIcon: () => (
 			      <MaterialIcons name="category" size={20} color="#505149" /> 
 		      ), tabBarActiveTintColor: "#505149", tabBarInactiveTintColor: "#8f9c8b", tabBarPressColor: "#505149"
@@ -72,11 +76,12 @@ const styles = StyleSheet.create({
 	imageBackgroundContainer: {
 		flex: 2,
 		height: '100%',
-		width: '100%'
+		width: '100%',
 	},
 	profileImage: {
+		flex: 2,
 		height: '100%',
-		width: '100%'
+		width: '100%',
 	}
 });
 

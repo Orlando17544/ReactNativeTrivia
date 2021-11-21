@@ -32,19 +32,23 @@ import HistoryScreen from './HistoryScreen.js';
 const MainScreen = () => {
 
 	return (
-		<Tab.Navigator>
+		<Tab.Navigator barStyle={{ backgroundColor: '#eef0ed' }} activeColor='#505149' inactiveColor='#8f9c8b' style={{ flex: 1 }}>
 		      <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: () => (
-			      <FontAwesome name="user" size={15} color="black" /> 
+			      <FontAwesome name="user" size={20} /> 
 		      )
 		      }}
 />
 		      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: () => (
-			      <Ionicons name="home" size={15} color="black" /> 
-		      )
+			      <View
+			      	style={{ width: 50, height: 50, backgroundColor: '#eef0ed', justifyContent: 'center', alignItems: 'center', borderRadius: 40, bottom: 7, elevation: 25 }}
+			      >
+			      <Ionicons name="home" size={35}/> 
+			      </View>
+		      ), tabBarLabel: ''
 		      }}
 		      />
 		      <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarIcon: () => (
-			      <FontAwesome5 name="clock" size={15} color="black" /> 
+			      <FontAwesome5 name="clock" size={20} /> 
 		      )
 		      }}
 />
