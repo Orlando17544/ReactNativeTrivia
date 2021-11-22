@@ -32,7 +32,7 @@ import HistoryScreen from './HistoryScreen.js';
 const MainScreen = () => {
 
 	return (
-		<Tab.Navigator barStyle={{ backgroundColor: '#eef0ed' }} activeColor='#505149' inactiveColor='#8f9c8b' style={{ flex: 1 }}>
+		<Tab.Navigator initialRouteName="Home" barStyle={{ backgroundColor: '#eef0ed' }} activeColor='#505149' inactiveColor='#8f9c8b' style={{ flex: 1 }}>
 		      <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: () => (
 			      <FontAwesome name="user" size={20} /> 
 		      )
