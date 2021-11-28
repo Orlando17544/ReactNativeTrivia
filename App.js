@@ -27,13 +27,13 @@ const App = () => {
 
 	return (
 		<NavigationContainer>
-		<Stack.Navigator initialRouteName="Main" 
+		<Stack.Navigator initialRouteName="WelcomeScreen" 
 		screenOptions={{
 			headerShown: false
 		}}
 		>
-		<Stack.Screen name="Main" component={MainScreen} />
 		<Stack.Screen name="Welcome" component={WelcomeScreen} />
+		<Stack.Screen name="Main" component={MainScreen} />
 		<Stack.Screen name="Name" component={NameScreen} />
 		</Stack.Navigator>
 		</NavigationContainer>

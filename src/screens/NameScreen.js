@@ -22,7 +22,7 @@ const NameScreen = () => {
 	return (
 		<View style={ styles.container }>
 		<ImageBackground
-		        source={require('../../assets/backgroundImage.png')}
+		        source={require('../../assets/backgroundImage.jpg')}
 			style={ styles.imageBackgroundContainer }
 			resizeMode="cover"
 		>
