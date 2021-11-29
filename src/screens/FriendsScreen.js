@@ -22,7 +22,7 @@ import {
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-const HistoryScreen = () => {
+const FriendsScreen = () => {
 
 	return (
 		<View style={ styles.container }>
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default HistoryScreen;
+export default FriendsScreen;
