@@ -25,141 +25,60 @@ const screenHeight = Dimensions.get('window').height;
 
 const CategoriesScreen = () => {
 
+	const categories = [{
+		image: require('../../assets/science.jpg'),
+		name: 'Science'	
+	}, {
+		image: require('../../assets/popCulture.jpg'),
+		name: 'Pop culture'
+	}, {
+		image: require('../../assets/sports.jpg'),
+		name: 'Sports'
+	}, {
+		image: require('../../assets/game.jpg'),
+		name: 'Game'
+	}, {
+		image: require('../../assets/health.jpg'),
+		name: 'Health'
+	}, {
+		image: require('../../assets/history.jpg'),
+		name: 'History'
+	}, {
+		image: require('../../assets/music.jpg'),
+		name: 'Music'
+	}, {
+		image: require('../../assets/religion.jpg'),
+		name: 'Religion' 
+	}, {
+		image: require('../../assets/design.jpg'),
+		name: 'Design'
+	}, {
+		image: require('../../assets/law.jpg'),
+		name: 'Law'
+	}, {
+		image: require('../../assets/animal.jpg'),
+		name: 'Animal'
+	}, {
+		image: require('../../assets/business.jpg'),
+		name: 'Business'
+	}];
+
 	return (
 		<View style={ styles.container }>
 			<ScrollView>
-			<View style={{ alignItems: 'center' }}>
-				<ImageBackground
-					source={require('../../assets/science.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Science</Text>
+			{categories.map((category) => 
+				<View style={{ alignItems: 'center' }}>
+					<ImageBackground
+						source={category.image}
+						resizeMode="contain"
+						style={ styles.imageCard }
+					>
+					<View style={ styles.containerTextCard }>
+						<Text style={ styles.textCard }>{category.name}</Text>
+					</View>
+					</ImageBackground>
 				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/popCulture.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Pop culture</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/sports.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Sports</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/game.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Game</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/health.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Health</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/history.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>History</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/music.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Music</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/religion.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Religion</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/design.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Design</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/law.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Law</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/animal.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Animal</Text>
-				</View>
-				</ImageBackground>
-			</View>
-			<View style={{ alignItems: 'center', marginTop: 5 }}>
-				<ImageBackground
-					source={require('../../assets/business.jpg')}
-					resizeMode="contain"
-					style={ styles.imageCard }
-				>
-				<View style={ styles.containerTextCard }>
-					<Text style={ styles.textCard }>Business</Text>
-				</View>
-				</ImageBackground>
-			</View>
+			)}
 			</ScrollView>
 		</View>
 	);
