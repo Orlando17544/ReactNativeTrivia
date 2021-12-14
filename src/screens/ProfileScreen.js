@@ -242,7 +242,7 @@ const ProfileScreen = () => {
 				style={ styles.profileImage }
 				resizeMode="contain"
 			/>
-			<TouchableOpacity style={{ position: 'absolute', top: 175, right: 45, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }}>
+			<TouchableOpacity style={{ position: 'absolute', top: 160, right: 45, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }}>
 				<MaterialIcons name="edit" size={30} color="white"/>
 			</TouchableOpacity>
 		</View>
