@@ -25,7 +25,7 @@ const screenHeight = Dimensions.get('window').height;
 
 const CategoriesScreen = () => {
 
-	const categories = [{
+	const CATEGORIES = [{
 		image: require('../../assets/science.jpg'),
 		name: 'Science'	
 	}, {
@@ -66,7 +66,7 @@ const CategoriesScreen = () => {
 	return (
 		<View style={ styles.container }>
 			<ScrollView>
-			{categories.map((category) => 
+			{CATEGORIES.map((category) => 
 				<View style={{ alignItems: 'center' }}>
 					<ImageBackground
 						source={category.image}

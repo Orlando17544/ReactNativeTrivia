@@ -12,24 +12,123 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	ImageBackground,
 	TouchableOpacity,
 	TextInput,
-	Image
+	Image,
+	ScrollView,
+	FlatList,
+	ImageBackground,
+	Dimensions
 } from 'react-native';
 
 const HistoryScreen = () => {
 
+	const screenWidth = Dimensions.get('window').width;
+
+	const QUESTIONS_ANSWERS = [{
+		question: 'What year was the very first model of the iPhone released?',
+		answer: 'Incorrect',
+		image: require('../../assets/science.jpg')
+	}, {
+		question: 'What’s the shortcut for the “copy” function on most computers?',
+		answer: 'Incorrect',
+		image: require('../../assets/popCulture.jpg')
+	}, {
+		question: 'What is the name of the man who launched eBay back in 1995?',
+		answer: 'Correct',
+		image: require('../../assets/sports.jpg')
+	}, {
+		question: 'Which email service is owned by Microsoft?',
+		answer: 'Incorrect',
+		image: require('../../assets/game.jpg')
+	}, {
+		question: 'Google Chrome, Safari, Firefox, and Explorer are different types of what?',
+		answer: 'Correct',
+		image: require('../../assets/health.jpg')
+	}, {
+		question: 'Who discovered penicillin?',
+		answer: 'Incorrect',
+		image: require('../../assets/history.jpg')
+	}, {
+		question: 'Who was the first woman to win a Nobel Prize (in 1903)?',
+		answer: 'Correct',
+		image: require('../../assets/music.jpg')
+	}, {
+		question: 'What part of the atom has no electric charge?',
+		answer: 'Incorrect',
+		image: require('../../assets/religion.jpg')
+	}, {
+		question: 'What is meteorology the study of?',
+		answer: 'Correct',
+		image: require('../../assets/design.jpg')
+	}, {
+		question: 'What animals are pearls found in?',
+		answer: 'Incorrect',
+		image: require('../../assets/law.jpg')
+	}, {
+		question: 'Which planet has the most gravity?',
+		answer: 'Incorrect',
+		image: require('../../assets/animal.jpg')
+	}, {
+		question: 'What does DC stand for?',
+		answer: 'Correct',
+		image: require('../../assets/business.jpg')
+	}, {
+		question: 'What is the name of the song that Queen Elsa sings as she builds her ice castle in the movie Frozen?',
+		answer: 'Correct',
+		image: require('../../assets/popCulture.jpg')
+	}, {
+		question: 'How many films did Sean Connery play James Bond in?',
+		answer: 'Incorrect',
+		image: require('../../assets/law.jpg')
+	}]
+
+	const Item = ({ question, answer, image }) => (
+				<>
+				<View style={{ flexDirection: 'row', marginLeft: 10, marginBottom: 5 }}>
+				<Image
+					source={image}
+					style={{ height: 100, width: 125 }}
+					resizeMode="contain"
+				/>
+				<View style={{ justifyContent: 'space-between' }}>
+					<View style={{flexDirection: 'row', width: screenWidth * 0.6 }}>
+					<Text style={{ flex: 1, fontWeight: 'bold', fontSize: 15, flexWrap: 'wrap', color: 'black' }}>{question}</Text>
+					</View>
+					<Text style={{ backgroundColor: answer == 'Correct' ? '#64bb0a' : '#e65b46' , fontWeight: 'bold', padding: 2, alignSelf: 'flex-start', left: screenWidth * 0.5, color: 'black' }}>{answer}</Text>
+				</View>
+				</View>
+				<View style={{ backgroundColor: '#808080', height: 1, width: '90%', alignSelf: 'center', marginBottom: 5 }}/>
+				</>
+	);
+
+	const renderItem = ({ item }) => (
+		<Item question={item.question} answer={item.answer} image={item.image}/>
+	);
+
+
 	return (
 		<View style={ styles.container }>
-			<Text>History</Text>
+			<ImageBackground
+				source={require('../../assets/historyBackground.png')}
+				style={{ height: '50%', width: '100%', flex: 1 }}
+				resizeMode="cover"
+			>
+			<FlatList style={{ marginTop: '20%', flex: 1 }}
+				data={QUESTIONS_ANSWERS}
+				renderItem={renderItem}
+				keyExtractor={item => item.question}
+			/>
+			</ImageBackground>
+			<Text style={{ textAlign: 'center', fontSize: 20, position: 'absolute', color: 'black', alignSelf: 'center', top: 5, fontWeight: 'bold' }}>History</Text>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		backgroundColor: '#9d9d9d',
 	},
 });
 
