@@ -123,7 +123,7 @@ const EditProfileScreen = () => {
 				animationType='fade'
 				onRequestClose={() => {setModalVisibleGenders(false)}}
 			>
-				<ScrollView style={{alignSelf: 'center', backgroundColor: 'white', elevation: 15, margin: 40}}>
+				<ScrollView style={{alignSelf: 'center', backgroundColor: 'white', elevation: 15, marginHorizontal: 40, marginVertical: screenHeight * 0.3}}>
 				<Text style={{fontSize: 25, marginBottom: 5, color: '#9f9f9f'}} onPress={() => {setGender('Gender'); setModalVisibleGenders(false);}}>Select a gender</Text>
 				{GENDERS.map((gender) =>
 					<TouchableOpacity onPress={() => {setGender(gender); setModalVisibleGenders(false);}}>

@@ -21,6 +21,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen.js';
 import NameScreen from './src/screens/NameScreen.js';
 import MainScreen from './src/screens/MainScreen.js';
 import EditProfileScreen from './src/screens/EditProfileScreen.js';
+import TriviaScreen from './src/screens/TriviaScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,11 +29,12 @@ const App = () => {
 
 	return (
 		<NavigationContainer>
-		<Stack.Navigator initialRouteName="EditProfile" 
+		<Stack.Navigator initialRouteName="Trivia" 
 		screenOptions={{
 			headerShown: false
 		}}
 		>
+		<Stack.Screen name="Trivia" component={TriviaScreen} />
 		<Stack.Screen name="EditProfile" component={EditProfileScreen} />
 		<Stack.Screen name="Main" component={MainScreen} />
 		<Stack.Screen name="Welcome" component={WelcomeScreen} />
