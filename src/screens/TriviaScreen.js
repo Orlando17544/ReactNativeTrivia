@@ -36,8 +36,10 @@ const shuffleArray = array => {
 	}
 }
 
-const TriviaScreen = () => {
+const TriviaScreen = ({ route, navigation }) => {
 	const [userAnswer, setUserAnswer] = useState('');
+
+	const { category } = route.params;
 
 	let question = 'What year was the very first model of the iPhone released?';
 
@@ -59,7 +61,7 @@ const TriviaScreen = () => {
 			</View>
 			<View style={{flex: 3, marginHorizontal: 15}}>
 				{answers.map((answer) =>
-					<TouchableOpacity style={{flex: 1, backgroundColor: answer == correctAnswer ? '#66ba0c' : answer == userAnswer && userAnswer != correctAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);}}>
+					<TouchableOpacity key={answer} style={{flex: 1, backgroundColor: answer == correctAnswer ? '#66ba0c' : answer == userAnswer && userAnswer != correctAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);}}>
 						<Text style={{fontSize: 17, fontWeight: 'bold'}}>{answer}</Text>
 					</TouchableOpacity>
 				)}

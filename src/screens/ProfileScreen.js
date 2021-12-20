@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type {Node} from 'react';
 import {
 	StyleSheet,
@@ -23,8 +23,31 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const ProfileScreen = () => {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const ProfileScreen = ({ navigation }) => {
 	//colors = ['#9f0000', '#cc7800', '#f1c800', '']; //red, orange, yellow, gray
+	
+	const [name, setName] = useState('');
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			getName();
+		});
+
+		return unsubscribe;
+	}, [navigation]);
+
+	const getName = async () => {
+		try {
+			const value = await AsyncStorage.getItem('name');
+			if(value != null) {
+				setName(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
 
 	const achievements = [{
 		color: '#d1d1d1',
@@ -216,7 +239,7 @@ const ProfileScreen = () => {
 				style={ styles.image }
 			/>
 			<View style={{ flex: 2, backgroundColor: '#e6e9e0', alignSelf: 'stretch' }}>
-				<Text style={{ textAlign: 'center', color: 'black', fontSize: 20, fontWeight: 'bold' }}>Player</Text>
+				<Text style={{ textAlign: 'center', color: 'black', fontSize: 20, fontWeight: 'bold' }}>{name != '' ? name : 'Player'}</Text>
 			</View>
 			<View style={{ flex: 7, backgroundColor: '#e6e9e0', alignSelf: 'stretch' }}>	
 				<FontAwesome5 name="medal" size={30} color="#5b5b53" style={{ alignSelf: 'center' }}/>
@@ -224,7 +247,7 @@ const ProfileScreen = () => {
 				<View style={{ backgroundColor: '#5b5b53', height: 5, width: 70, alignSelf: 'center' }}></View>
 			<ScrollView>
 				{achievements.map((achievement) => 
-					<>
+					<View key={achievement.level + achievement.category}>
 					<View style={{flexDirection: 'row', padding: 15, marginLeft: '25%'}}>
 						<FontAwesome name="star" size={30} color={achievement.color}/>	
 						<View style={{ paddingHorizontal: 20 }}>
@@ -233,7 +256,7 @@ const ProfileScreen = () => {
 						</View>
 					</View>
 					<View style={{backgroundColor: '#808080', height: 1, width: '90%', alignSelf: 'center'}}/>
-					</>
+					</View>
 				)}
 			</ScrollView>
 			</View>
@@ -242,7 +265,7 @@ const ProfileScreen = () => {
 				style={ styles.profileImage }
 				resizeMode="contain"
 			/>
-			<TouchableOpacity style={{ position: 'absolute', top: 160, right: 45, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }}>
+			<TouchableOpacity style={{ position: 'absolute', top: 160, right: 45, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }} onPress={() => {navigation.navigate('EditProfile');}}>
 				<MaterialIcons name="edit" size={30} color="white"/>
 			</TouchableOpacity>
 		</View>

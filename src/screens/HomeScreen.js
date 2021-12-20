@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type {Node} from 'react';
 import {
 	StyleSheet,
@@ -21,6 +21,8 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
@@ -28,7 +30,28 @@ const Tab = createMaterialTopTabNavigator();
 import CategoriesScreen from './CategoriesScreen.js';
 import FriendsScreen from './FriendsScreen.js';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+
+	const [name, setName] = useState('');
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			getName();
+		});
+
+		return unsubscribe;
+	}, [navigation]);
+
+	const getName = async () => {  
+		try {    
+			const value = await AsyncStorage.getItem('name'); 
+			if(value != null) {
+				setName(value);
+			} 
+		} catch(e) {    
+			console.log(e);	
+		}
+	}
 
 	return (
 		<View style={ styles.container }>
@@ -42,7 +65,7 @@ const HomeScreen = () => {
 			style={ styles.profileImage }
 			resizeMode="contain"
 		/>
-		<Text style={{ flex: 1, fontSize: 25, color: 'black', textAlign: 'center', fontWeight: 'bold' }}>Player</Text>
+		<Text style={{ flex: 1, fontSize: 25, color: 'black', textAlign: 'center', fontWeight: 'bold' }}>{name != '' ? name : 'Player'}</Text>
 		</ImageBackground>
 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e5e7e2' }}>
 		<TouchableOpacity style={{ backgroundColor: '#19ba50', borderRadius: 5, paddingHorizontal: '40%', paddingVertical: '3%' }}>

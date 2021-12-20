@@ -23,7 +23,7 @@ import {
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-const CategoriesScreen = () => {
+const CategoriesScreen = ({ navigation }) => {
 
 	const CATEGORIES = [{
 		image: require('../../assets/science.jpg'),
@@ -67,7 +67,9 @@ const CategoriesScreen = () => {
 		<View style={ styles.container }>
 			<ScrollView>
 			{CATEGORIES.map((category) => 
-				<View style={{ alignItems: 'center' }}>
+				<TouchableOpacity key={category.name} style={{ alignItems: 'center' }} onPress={() => {navigation.navigate('Trivia', {
+					category: category.name
+				})}}>
 					<ImageBackground
 						source={category.image}
 						resizeMode="contain"
@@ -77,7 +79,7 @@ const CategoriesScreen = () => {
 						<Text style={ styles.textCard }>{category.name}</Text>
 					</View>
 					</ImageBackground>
-				</View>
+				</TouchableOpacity>
 			)}
 			</ScrollView>
 		</View>

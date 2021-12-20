@@ -26,6 +26,8 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 SplashScreen.hide();
 
 /*
@@ -54,22 +56,46 @@ ocarina.setNumberOfLoops(100);
 
 */
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }) => {
 	const [gender, setGender] = useState('');
 	const [interests, setInterests] = useState([]);
 	const [correctGender, setCorrectGender] = useState(true);
 	const [correctInterests, setCorrectInterests] = useState(true);
 
+	const storeGender = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('gender', value)  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
+
+	const storeInterests = async (value) => {  
+		try {    
+			const jsonValue = JSON.stringify(value)    
+			await AsyncStorage.setItem('interests', jsonValue)  
+		} catch (e) {    
+			console.log(e);
+		}
+	}
+
 	function checkAnswers() {
+		if (gender != '' && interests.length >= 3) {
+			setCorrectGender(true);
+			setCorrectInterests(true);
+			storeGender(gender);
+			storeInterests(interests);
+			navigation.navigate('Name');
+		} 
 		if (gender == '') {
 			setCorrectGender(false);
 		} else {
 			setCorrectGender(true);
 		}
-		if (interests.length >= 3) {
-			setCorrectInterests(true);
-		} else {
+		if (interests.length < 3) {
 			setCorrectInterests(false);
+		} else {
+			setCorrectInterests(true);
 		}
 	}
 
@@ -219,7 +245,7 @@ const WelcomeScreen = () => {
 				onPress={() => {checkAnswers()}}>
 				<Text style={{ fontSize: 20, color: 'white' }}>CONTINUE</Text>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => {navigation.navigate('Name');}}>
 				<Text style={[ styles.text, {marginTop: '5%'} ]}>Skip</Text>
 			</TouchableOpacity>
 		</View>

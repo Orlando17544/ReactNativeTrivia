@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type {Node} from 'react';
 import {
 	StyleSheet,
@@ -24,18 +24,126 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 
-const EditProfileScreen = () => {
-	//colors = ['#9f0000', '#cc7800', '#f1c800', '']; //red, orange, yellow, gray
+const EditProfileScreen = ({ navigation }) => {
+	const [name, setName] = useState('');
+	const [bio, setBio] = useState('');
 	const [modalVisibleCountries, setModalVisibleCountries] = useState(false);
 	const [country, setCountry] = useState('Country');
 	const [modalVisibleAges, setModalVisibleAges] = useState(false);
 	const [age, setAge] = useState('Age');
 	const [modalVisibleGenders, setModalVisibleGenders] = useState('false');
 	const [gender, setGender] = useState('Gender');
+
+	useEffect(() => {
+		getName();
+		getBio();
+		getCountry();
+		getAge();
+		getGender();
+	}, []);
+
+	const getName = async () => {
+		try {
+			const value = await AsyncStorage.getItem('name');
+			if(value != null) {
+				setName(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
+	const getBio = async () => {
+		try {
+			const value = await AsyncStorage.getItem('bio');
+			if(value != null) {
+				setBio(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
+	
+	const getCountry = async () => {
+		try {
+			const value = await AsyncStorage.getItem('country');
+			if(value != null) {
+				setCountry(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
+	const getAge = async () => {
+		try {
+			const value = await AsyncStorage.getItem('age');
+			if(value != null) {
+				setAge(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
+	const getGender = async () => {
+		try {
+			let value = await AsyncStorage.getItem('gender');
+			if(value != null) {
+				value = value.charAt(0).toUpperCase() + value.slice(1);
+				setGender(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
+
+	const storeName = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('name', value)  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
+
+	const storeBio = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('bio', value)  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
+
+	const storeCountry = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('country', value)  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
+
+	const storeAge = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('age', value.toString())  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
+
+	const storeGender = async (value) => {  
+		try {    
+			await AsyncStorage.setItem('gender', value)  
+		} catch (e) { 
+			console.log(e); 
+		}
+	}
 
 	const COUNTRIES = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Côte d’Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor (Timor-Leste)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia, Federated States of", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Sudan, South", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
 
@@ -59,9 +167,13 @@ const EditProfileScreen = () => {
 				<TextInput style={{ borderBottomWidth: 1, flex: 1 }}
 				placeholder="Your name"
 				textAlignVertical="bottom"
+				value={name}
+				onChangeText={(text) => {setName(text);}}
 				/>
 				<TextInput style={{ borderWidth: 1, marginTop: 15, flex: 3 }}
 				placeholder="Bio"
+				value={bio}
+				onChangeText={(text) => {setBio(text);}}
 				multiline={true}
 				textAlignVertical="top"
 				/>
@@ -79,7 +191,7 @@ const EditProfileScreen = () => {
 						<AntDesign name="caretdown" size={15} color="black"/>
 					</TouchableOpacity>
 				</View>
-				<TouchableOpacity style={{flex: 1, backgroundColor: '#46a2ef', justifyContent: 'center', borderRadius: 10, marginBottom: 5, marginTop: 15}}> 
+				<TouchableOpacity style={{flex: 1, backgroundColor: '#46a2ef', justifyContent: 'center', borderRadius: 10, marginBottom: 5, marginTop: 15}} onPress={() => {storeName(name);storeBio(bio);storeCountry(country);storeAge(age);storeGender(gender);navigation.navigate('Main');}}> 
 					<Text style={{alignSelf: 'center', color: 'white', fontSize: 15, fontWeight: 'bold'}}>Save</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#1977f1', borderRadius: 10, marginVertical: 5}}> 
@@ -96,7 +208,7 @@ const EditProfileScreen = () => {
 				<ScrollView style={{alignSelf: 'center', backgroundColor: 'white', elevation: 15, margin: 40}}>
 				<Text style={{fontSize: 25, marginBottom: 5, color: '#9f9f9f'}} onPress={() => {setCountry('Country'); setModalVisibleCountries(false);}}>Select a country</Text>
 				{COUNTRIES.map((country) =>
-					<TouchableOpacity onPress={() => {setCountry(country); setModalVisibleCountries(false);}}>
+					<TouchableOpacity key={country} onPress={() => {setCountry(country); setModalVisibleCountries(false);}}>
 						<Text style={{fontSize: 25, marginBottom: 5, color: 'black'}}>{country}</Text>
 					</TouchableOpacity>
 				)}
@@ -111,7 +223,7 @@ const EditProfileScreen = () => {
 				<ScrollView style={{alignSelf: 'center', backgroundColor: 'white', elevation: 15, margin: 40}}>
 				<Text style={{fontSize: 25, marginBottom: 5, color: '#9f9f9f'}} onPress={() => {setAge('Age'); setModalVisibleAges(false);}}>Select an age</Text>
 				{AGES.map((age) =>
-					<TouchableOpacity onPress={() => {setAge(age); setModalVisibleAges(false);}}>
+					<TouchableOpacity key={age} onPress={() => {setAge(age); setModalVisibleAges(false);}}>
 						<Text style={{fontSize: 25, marginBottom: 5, color: 'black'}}>{age}</Text>
 					</TouchableOpacity>
 				)}
@@ -126,7 +238,7 @@ const EditProfileScreen = () => {
 				<ScrollView style={{alignSelf: 'center', backgroundColor: 'white', elevation: 15, marginHorizontal: 40, marginVertical: screenHeight * 0.3}}>
 				<Text style={{fontSize: 25, marginBottom: 5, color: '#9f9f9f'}} onPress={() => {setGender('Gender'); setModalVisibleGenders(false);}}>Select a gender</Text>
 				{GENDERS.map((gender) =>
-					<TouchableOpacity onPress={() => {setGender(gender); setModalVisibleGenders(false);}}>
+					<TouchableOpacity key={gender} onPress={() => {setGender(gender); setModalVisibleGenders(false);}}>
 						<Text style={{fontSize: 25, marginBottom: 5, color: 'black'}}>{gender}</Text>
 					</TouchableOpacity>
 				)}
