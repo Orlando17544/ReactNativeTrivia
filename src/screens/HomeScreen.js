@@ -15,7 +15,8 @@ import {
 	ImageBackground,
 	TouchableOpacity,
 	TextInput,
-	Image
+	Image,
+	Dimensions
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -27,21 +28,36 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const Tab = createMaterialTopTabNavigator();
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 import CategoriesScreen from './CategoriesScreen.js';
 import FriendsScreen from './FriendsScreen.js';
 
 const HomeScreen = ({ navigation }) => {
 
+	const [profileImage, setProfileImage] = useState('');
 	const [name, setName] = useState('');
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			getName();
+			getProfileImage();
 		});
 
 		return unsubscribe;
 	}, [navigation]);
 
+	const getProfileImage = async () => {
+		try {
+			const value = await AsyncStorage.getItem('profileImage');
+			if(value != null) {
+				setProfileImage(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
 	const getName = async () => {  
 		try {    
 			const value = await AsyncStorage.getItem('name'); 
@@ -61,9 +77,9 @@ const HomeScreen = ({ navigation }) => {
 			resizeMode="cover"
 		>
 		<Image
-			source={require('../../assets/profile.png')}
+			source={profileImage != '' ? {uri: profileImage} : require('../../assets/profile.png')}
 			style={ styles.profileImage }
-			resizeMode="contain"
+			resizeMode="cover"
 		/>
 		<Text style={{ flex: 1, fontSize: 25, color: 'black', textAlign: 'center', fontWeight: 'bold' }}>{name != '' ? name : 'Player'}</Text>
 		</ImageBackground>
@@ -103,8 +119,10 @@ const styles = StyleSheet.create({
 	},
 	profileImage: {
 		flex: 2,
-		height: '100%',
-		width: '100%',
+		height: screenWidth * 0.20,
+		width: screenWidth * 0.20,
+		borderRadius: screenWidth * 0.20 / 2,
+		alignSelf: 'center'
 	}
 });
 
