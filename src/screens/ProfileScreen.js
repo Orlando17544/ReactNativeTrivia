@@ -16,7 +16,8 @@ import {
 	TouchableOpacity,
 	TextInput,
 	Image,
-	ScrollView
+	ScrollView,
+	Dimensions
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -25,18 +26,34 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 const ProfileScreen = ({ navigation }) => {
 	//colors = ['#9f0000', '#cc7800', '#f1c800', '']; //red, orange, yellow, gray
 	
 	const [name, setName] = useState('');
+	const [profileImage, setProfileImage] = useState('');
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			getName();
+			getProfileImage();
 		});
 
 		return unsubscribe;
 	}, [navigation]);
+
+	const getProfileImage = async () => {
+		try {
+			const value = await AsyncStorage.getItem('profileImage');
+			if(value != null) {
+				setProfileImage(value);
+			}	
+		} catch(e) {
+			console.log(e);
+		}
+	}
 
 	const getName = async () => {
 		try {
@@ -261,9 +278,9 @@ const ProfileScreen = ({ navigation }) => {
 			</ScrollView>
 			</View>
 			<Image
-				source={require('../../assets/profile.png')}
+				source={profileImage != '' ? {uri: profileImage} : require('../../assets/profile.png')}
 				style={ styles.profileImage }
-				resizeMode="contain"
+				resizeMode="cover"
 			/>
 			<TouchableOpacity style={{ position: 'absolute', top: 160, right: 45, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }} onPress={() => {navigation.navigate('EditProfile');}}>
 				<MaterialIcons name="edit" size={30} color="white"/>
@@ -283,11 +300,12 @@ const styles = StyleSheet.create({
 		width: '100%'
 	},
 	profileImage: {
-		height: '30%',
-		width: '30%',
+		height: screenWidth * 0.3225,
+		width: screenWidth * 0.3225,
 		position: 'absolute',
 		top: 100,
-		left: 25
+		left: 25,
+		borderRadius: screenWidth * 0.3225 / 2
 	}
 });
 
