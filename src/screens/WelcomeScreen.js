@@ -149,29 +149,29 @@ const WelcomeScreen = ({ navigation }) => {
 			<Text style={[ styles.text, {color: correctInterests ? 'black' : '#ca0f02'} ]}>Your interests (at least 3): </Text>
 			<View style={ styles.optionsButtonsContainer }>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('technologyScience') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('technologyScience');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Science') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Science');}}
 				>
 					<MaterialIcons name="science" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Science</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('popCulture') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('popCulture');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Pop culture') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Pop culture');}}
 				>
 					<FontAwesome name="hand-rock-o" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Pop culture</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('carsSports') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('carsSports');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Sports') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Sports');}}
 				>
 					<MaterialIcons name="sports-soccer" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Sports</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('gameRiddles') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('gameRiddles');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Game') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Game');}}
 				>
 					<MaterialIcons name="videogame-asset" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Game</Text>
@@ -179,29 +179,29 @@ const WelcomeScreen = ({ navigation }) => {
 			</View>
 			<View style={ styles.optionsButtonsContainer }>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('healthCooking') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('healthCooking');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Health') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Health');}}
 				>
 					<MaterialIcons name="healing" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Health</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('geographyHistory') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('geographyHistory');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('History') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('History');}}
 				>
 					<Entypo name="back-in-time" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>History</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('musicLiterature') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('musicLiterature');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Music') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Music');}}
 				>
 					<Ionicons name="musical-notes" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Music</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('religionCulture') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('religionCulture');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Religion') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Religion');}}
 				>
 					<FontAwesome5 name="cross" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Religion</Text>
@@ -209,31 +209,31 @@ const WelcomeScreen = ({ navigation }) => {
 			</View>
 			<View style={ styles.optionsButtonsContainer }>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('fashionDesign') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('fashionDesign');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Design') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Design');}}
 				>
 					<MaterialIcons name="design-services" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Design</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('lawPolitics') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('lawPolitics');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Law') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Law');}}
 				>
 					<Octicons name="law" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Law</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('animal') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('animal');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Animal') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Animal');}}
 				>
 					<MaterialCommunityIcons name="elephant" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Animal</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('business') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('business');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Business') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Business');}}
 				>
-					<MaterialIcons name="business" size={20} color="black" />
+					<MaterialIcons name="Business" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Business</Text>
 				</TouchableOpacity>
 			</View>

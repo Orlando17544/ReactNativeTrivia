@@ -68,7 +68,7 @@ const CategoriesScreen = ({ navigation }) => {
 			<ScrollView>
 			{CATEGORIES.map((category) => 
 				<TouchableOpacity key={category.name} style={{ alignItems: 'center' }} onPress={() => {navigation.navigate('Trivia', {
-					category: category.name
+					categories: [category.name]
 				})}}>
 					<ImageBackground
 						source={category.image}
