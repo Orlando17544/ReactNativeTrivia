@@ -84,17 +84,17 @@ const ProfileScreen = ({ navigation }) => {
 	{
 		color: '#d1d1d1',
 		level: 'Beginner',
-		category: 'Pop culture'
+		category: 'Pop_culture'
 		},
 	{
 		color: '#d1d1d1',
 		level: 'Expert',
-		category: 'Pop culture'
+		category: 'Pop_culture'
 		},
 	{
 		color: '#d1d1d1',
 		level: 'Legendary',
-		category: 'Pop culture'
+		category: 'Pop_culture'
 		},
 	{
 		color: '#d1d1d1',

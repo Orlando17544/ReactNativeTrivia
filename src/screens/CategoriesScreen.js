@@ -30,7 +30,7 @@ const CategoriesScreen = ({ navigation }) => {
 		name: 'Science'	
 	}, {
 		image: require('../../assets/popCulture.jpg'),
-		name: 'Pop culture'
+		name: 'Pop_culture'
 	}, {
 		image: require('../../assets/sports.jpg'),
 		name: 'Sports'
@@ -76,7 +76,7 @@ const CategoriesScreen = ({ navigation }) => {
 						style={ styles.imageCard }
 					>
 					<View style={ styles.containerTextCard }>
-						<Text style={ styles.textCard }>{category.name}</Text>
+						<Text style={ styles.textCard }>{category.name.replace('_', ' ')}</Text>
 					</View>
 					</ImageBackground>
 				</TouchableOpacity>

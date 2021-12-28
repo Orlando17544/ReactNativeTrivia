@@ -27,6 +27,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const shuffleArray = array => {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -42,13 +44,17 @@ let indexItem = 0;
 
 let correctAnswer = ''
 
+let categoryImage;
+
+let numberItems;
+
+let categories;
+
+let legendaryAchievementLeft;
+let expertAchievementLeft;
+let beginnerAchievementLeft;
+
 const TriviaScreen = ({ route, navigation }) => {
-	const [userAnswer, setUserAnswer] = useState('');
-	const [question, setQuestion] = useState('');
-	const [answers, setAnswers] = useState([]);
-
-	const { categories } = route.params;
-
 	const DATA = {
 		Science: [
 			{question: 'What year was the very first model of the iPhone released?', 
@@ -512,58 +518,190 @@ const TriviaScreen = ({ route, navigation }) => {
 		]
 	};
 
+	const [userAnswer, setUserAnswer] = useState('');
+	const [question, setQuestion] = useState('');
+	const [answers, setAnswers] = useState([]);
+	const [correctAnswers, setCorrectAnswers] = useState(0);
+
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
+			categories = route.params.categories;
 			items = [];
+			indexItem = 0;
 			categories.forEach((category) => {
 				if (category == 'Science') {
 					items = [...items, ...DATA.Science];
-				} else if (category == 'Pop culture') {
-					items = [...items, ...DATA.Science];
+				} else if (category == 'Pop_culture') {
+					items = [...items, ...DATA.Pop_culture];
 				} else if (category == 'Sports') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Sports];
 				} else if (category == 'Game') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Game];
 				} else if (category == 'Health') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Health];
 				} else if (category == 'History') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.History];
 				} else if (category == 'Music') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Music];
 				} else if (category == 'Religion') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Religion];
 				} else if (category == 'Design') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Design];
 				} else if (category == 'Law') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Law];
 				} else if (category == 'Animal') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Animal];
 				} else if (category == 'Business') {
-					items = [...items, ...DATA.Science];
+					items = [...items, ...DATA.Business];
 				}
 			});
+			numberItems = items.length
+			//To choice an image
+			let category;
+			if (categories.length == 1) {
+				category = categories[0];
+			} else {
+				shuffleArray(categories);
+				category = categories[0];
+			}
+			if (category == 'Science') {
+				categoryImage = require('../../assets/science.jpg');
+			} else if (category == 'Pop_culture') {
+				categoryImage = require('../../assets/popCulture.jpg');
+			} else if (category == 'Sports') {
+				categoryImage = require('../../assets/sports.jpg');
+			} else if (category == 'Game') {
+				categoryImage = require('../../assets/game.jpg');
+			} else if (category == 'Health') {
+				categoryImage = require('../../assets/health.jpg');
+			} else if (category == 'History') {
+				categoryImage = require('../../assets/history.jpg');
+			} else if (category == 'Music') {
+				categoryImage = require('../../assets/music.jpg');
+			} else if (category == 'Religion') {
+				categoryImage = require('../../assets/religion.jpg');
+			} else if (category == 'Design') {
+				categoryImage = require('../../assets/design.jpg');
+			} else if (category == 'Law') {
+				categoryImage = require('../../assets/law.jpg');
+			} else if (category == 'Animal') {
+				categoryImage = require('../../assets/animal.jpg');
+			} else if (category == 'Business') {
+				categoryImage = require('../../assets/business.jpg');
+			}
 			prepareNextItem();
 		});
 
 		return unsubscribe;
 	}, [navigation])
 
-	function prepareNextItem() {
-		let tempAnswers = items[indexItem].answers;
-		correctAnswer = tempAnswers[0];
-		indexItem = indexItem + 1;
-		shuffleArray(tempAnswers);
-
-		setQuestion(items[indexItem].question);
-		setAnswers(tempAnswers);
+	const alreadyHaveAchievement = async (level) => {
+		try {    
+			let jsonValue = await AsyncStorage.getItem('achievements');
+			if (jsonValue == null) {
+				jsonValue = {
+					Science: [],
+					Pop_culture: [],
+					Sports: [],
+					Game: [],
+					Health: [],
+					History: [],
+					Music: [],
+					Religion: [],
+					Design: [],
+					Law: [],
+					Animal: [],
+					Business: [],
+				}
+				jsonValue = JSON.stringify(jsonValue);
+				await AsyncStorage.setItem('achievements', jsonValue);
+			}
+			jsonValue = await AsyncStorage.getItem('achievements');
+			const jsonObject = JSON.parse(jsonValue);
+			const achievementsArray = jsonObject[categories[0]];
+			if (achievementsArray.includes(level)) {
+				if (level == 'Legendary') {
+					legendaryAchievementLeft = false;
+				} else if (level == 'Expert') {
+					expertAchievementLeft = false;
+				} else if (level == 'Beginner') {
+					beginnerAchievementLeft = false;
+				}
+			} else {
+				if (level == 'Legendary') {
+					legendaryAchievementLeft = true;
+				} else if (level == 'Expert') {
+					expertAchievementLeft = true;
+				} else if (level == 'Beginner') {
+					beginnerAchievementLeft = true;
+				}
+			}
+		} catch (e) { 
+			console.log(e); 
+		}
 	}
 
+	function evaluateAchievement() {
+			let percentageCorrectAnswers = correctAnswers * 100 / numberItems;
+			alreadyHaveAchievement('Legendary');
+			alreadyHaveAchievement('Expert');
+			alreadyHaveAchievement('Beginner');
+			if (percentageCorrectAnswers >= 90 && categories.length == 1 && legendaryAchievementLeft) {
+				navigation.navigate('Achievement', {
+					level: 'Legendary',
+					category: categories[0]
+				})
+			} else if (percentageCorrectAnswers >= 80 && categories.length == 1 && expertAchievementLeft) {
+				navigation.navigate('Achievement', {
+					level: 'Expert',
+					category: categories[0]
+				})
+			} else if (percentageCorrectAnswers >= 70 && categories.length == 1 && beginnerAchievementLeft) {
+				navigation.navigate('Achievement', {
+					level: 'Beginner',
+					category: categories[0]
+				})
+			} else {
+				navigation.navigate('Main');
+			}
+	}
 
+	const deleteData = async () => {
+		try {
+			await AsyncStorage.removeItem('achievements');
+			let jsonValue = await AsyncStorage.getItem('achievements');
+			console.log("Valor de la información: " + jsonValue);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	function prepareNextItem() {
+		//deleteData();
+		if (numberItems == indexItem) {
+			evaluateAchievement();
+		} else {
+			let tempAnswers = items[indexItem].answers;
+			let question = items[indexItem].question;
+			correctAnswer = tempAnswers[0];
+			shuffleArray(tempAnswers);
+			setQuestion(question);
+			setAnswers(tempAnswers);
+
+			indexItem = indexItem + 1;
+		}
+	}
+
+	function countCorrectAnswer(answer) {
+		if (answer == correctAnswer) {
+			setCorrectAnswers(correctAnswers + 1);
+		}
+	}
 
 	return (
 		<View style={ styles.container }>
 			<Image
-				source={require('../../assets/game.jpg')}
+				source={categoryImage}
 				resizeMode="cover"
 				style={ styles.image }
 			/>
@@ -572,7 +710,7 @@ const TriviaScreen = ({ route, navigation }) => {
 			</View>
 			<View style={{flex: 3, marginHorizontal: 15}}>
 				{answers.map((answer) =>
-					<TouchableOpacity key={answer} style={{flex: 1, backgroundColor: answer == correctAnswer ? '#66ba0c' : answer == userAnswer && userAnswer != correctAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);}}>
+					<TouchableOpacity key={answer} style={{flex: 1, backgroundColor: userAnswer == '' ? '#c2bfb0' : answer == correctAnswer ? '#66ba0c' : answer == userAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);countCorrectAnswer(answer);}} disabled={userAnswer == '' ? false : true}>
 						<Text style={{fontSize: 17, fontWeight: 'bold'}}>{answer}</Text>
 					</TouchableOpacity>
 				)}

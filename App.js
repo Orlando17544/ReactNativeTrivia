@@ -22,6 +22,7 @@ import NameScreen from './src/screens/NameScreen.js';
 import MainScreen from './src/screens/MainScreen.js';
 import EditProfileScreen from './src/screens/EditProfileScreen.js';
 import TriviaScreen from './src/screens/TriviaScreen.js';
+import AchievementScreen from './src/screens/AchievementScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const App = () => {
 		}}
 		>
 		<Stack.Screen name="Main" component={MainScreen} />
+		<Stack.Screen name="Achievement" component={AchievementScreen} />
 		<Stack.Screen name="EditProfile" component={EditProfileScreen} />
 		<Stack.Screen name="Welcome" component={WelcomeScreen} />
 		<Stack.Screen name="Trivia" component={TriviaScreen} />

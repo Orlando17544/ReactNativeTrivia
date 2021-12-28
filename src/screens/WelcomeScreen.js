@@ -156,8 +156,8 @@ const WelcomeScreen = ({ navigation }) => {
 					<Text style={ styles.textOptionsButtons }>Science</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Pop culture') ? '#ffe264' : 'white', marginLeft: 10} ]}
-					onPress={() => {addRemoveInterest('Pop culture');}}
+					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Pop_culture') ? '#ffe264' : 'white', marginLeft: 10} ]}
+					onPress={() => {addRemoveInterest('Pop_culture');}}
 				>
 					<FontAwesome name="hand-rock-o" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Pop culture</Text>
