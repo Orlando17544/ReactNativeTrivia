@@ -57,23 +57,30 @@ ocarina.setNumberOfLoops(100);
 
 */
 
+let jsonValue;
+let jsonObject;
+let achievementsObject;
+
 const AchievementScreen = ({ route, navigation }) => {
 
 	let { level, category } = route.params;
 
 	const storeAchievement = async () => {  
 		try {    
-			let jsonValue = await AsyncStorage.getItem('achievements');
-			const jsonObject = JSON.parse(jsonValue);
-			const achievementsArray = jsonObject[category];
-			achievementsArray.push(level);
-			jsonObject[category] = achievementsArray;
-
+			jsonValue = await AsyncStorage.getItem('achievements');
+			prepareAchievement();
 			jsonValue = JSON.stringify(jsonObject);
 			await AsyncStorage.setItem('achievements', jsonValue);
 		} catch (e) { 
 			console.log(e); 
 		}
+	}
+
+	function prepareAchievement() {
+		jsonObject = JSON.parse(jsonValue);
+		achievementsObject = jsonObject[category];
+		achievementsObject[level] = true
+		jsonObject[category] = achievementsObject;
 	}
 
 	return (

@@ -34,11 +34,13 @@ const ProfileScreen = ({ navigation }) => {
 	
 	const [name, setName] = useState('');
 	const [profileImage, setProfileImage] = useState('');
+	const [achievements, setAchievements] = useState({});
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			getName();
 			getProfileImage();
+			getAchievements();
 		});
 
 		return unsubscribe;
@@ -66,187 +68,18 @@ const ProfileScreen = ({ navigation }) => {
 		}
 	}
 
-	const achievements = [{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Science'
-	}, 
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Science'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Science'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Pop_culture'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Pop_culture'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Pop_culture'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Sports'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Sports'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Sports'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Game'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Game'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Game'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Health'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Health'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Health'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'History'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'History'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'History'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Music'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Music'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Music'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Religion'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Religion'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Religion'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Design'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Design'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Design'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Law'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Law'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Law'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Animal'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Animal'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Animal'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Beginner',
-		category: 'Business'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Expert',
-		category: 'Business'
-		},
-	{
-		color: '#d1d1d1',
-		level: 'Legendary',
-		category: 'Business'
-		},
-	];
+	const getAchievements = async () => {  
+		try {    
+			let jsonValue = await AsyncStorage.getItem('achievements');
+			jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
+			if(jsonValue != null) {
+				setAchievements(jsonValue);
+			}
+			console.log(jsonValue);
+		} catch(e) {    // error reading value  
+			console.log(e);
+		}
+	}
 
 	return (
 		<View style={ styles.container }>
@@ -262,20 +95,22 @@ const ProfileScreen = ({ navigation }) => {
 				<FontAwesome5 name="medal" size={30} color="#5b5b53" style={{ alignSelf: 'center' }}/>
 				<Text style={{ textAlign: 'center' }}>Logros</Text>
 				<View style={{ backgroundColor: '#5b5b53', height: 5, width: 70, alignSelf: 'center' }}></View>
-			<ScrollView>
-				{achievements.map((achievement) => 
-					<View key={achievement.level + achievement.category}>
+			{<ScrollView>
+				{Object.keys(achievements).map((category) => Object.keys(achievements[category]).map((level) =>
+					<View key={category + level}>
 					<View style={{flexDirection: 'row', padding: 15, marginLeft: '25%'}}>
-						<FontAwesome name="star" size={30} color={achievement.color}/>	
+						<FontAwesome name="star" size={30} color={level == 'Legendary' && achievements[category][level] ? '#D4AF37' : level == 'Expert' && achievements[category][level] ? '#C0C0C0' : level == 'Beginner' && achievements[category][level] ? '#CD7F32' : '#808080'}/>
 						<View style={{ paddingHorizontal: 20 }}>
-							<Text>{achievement.level} level</Text>
-							<Text>{achievement.category} category</Text>
+							<Text>{level} level</Text>
+							<Text>{category.replace('_', ' ')} category</Text>
 						</View>
 					</View>
 					<View style={{backgroundColor: '#808080', height: 1, width: '90%', alignSelf: 'center'}}/>
 					</View>
+				)
 				)}
 			</ScrollView>
+			}
 			</View>
 			<Image
 				source={profileImage != '' ? {uri: profileImage} : require('../../assets/profile.png')}

@@ -54,6 +54,8 @@ let legendaryAchievementLeft;
 let expertAchievementLeft;
 let beginnerAchievementLeft;
 
+let jsonValue;
+
 const TriviaScreen = ({ route, navigation }) => {
 	const DATA = {
 		Science: [
@@ -595,68 +597,77 @@ const TriviaScreen = ({ route, navigation }) => {
 		return unsubscribe;
 	}, [navigation])
 
-	const alreadyHaveAchievement = async (level) => {
-		try {    
-			let jsonValue = await AsyncStorage.getItem('achievements');
-			if (jsonValue == null) {
-				jsonValue = {
-					Science: [],
-					Pop_culture: [],
-					Sports: [],
-					Game: [],
-					Health: [],
-					History: [],
-					Music: [],
-					Religion: [],
-					Design: [],
-					Law: [],
-					Animal: [],
-					Business: [],
-				}
-				jsonValue = JSON.stringify(jsonValue);
-				await AsyncStorage.setItem('achievements', jsonValue);
+	const getAchievements = async () => {
+		jsonValue = await AsyncStorage.getItem('achievements');
+	}
+
+	const setAchievements = async (value) => {
+		await AsyncStorage.setItem('achievements', value);
+	}
+
+	function checkAchievements() {
+		getAchievements();
+
+		if (jsonValue == null) {
+			jsonValue = {
+				Science: {Legendary: false, Expert: false, Beginner: false},
+				Pop_culture: {Legendary: false, Expert: false, Beginner: false},
+				Sports: {Legendary: false, Expert: false, Beginner: false},
+				Game: {Legendary: false, Expert: false, Beginner: false},
+				Health: {Legendary: false, Expert: false, Beginner: false},
+				History: {Legendary: false, Expert: false, Beginner: false},
+				Music: {Legendary: false, Expert: false, Beginner: false},
+				Religion: {Legendary: false, Expert: false, Beginner: false},
+				Design: {Legendary: false, Expert: false, Beginner: false},
+				Law: {Legendary: false, Expert: false, Beginner: false},
+				Animal: {Legendary: false, Expert: false, Beginner: false},
+				Business: {Legendary: false, Expert: false, Beginner: false}
 			}
-			jsonValue = await AsyncStorage.getItem('achievements');
-			const jsonObject = JSON.parse(jsonValue);
-			const achievementsArray = jsonObject[categories[0]];
-			if (achievementsArray.includes(level)) {
-				if (level == 'Legendary') {
-					legendaryAchievementLeft = false;
-				} else if (level == 'Expert') {
-					expertAchievementLeft = false;
-				} else if (level == 'Beginner') {
-					beginnerAchievementLeft = false;
-				}
-			} else {
-				if (level == 'Legendary') {
-					legendaryAchievementLeft = true;
-				} else if (level == 'Expert') {
-					expertAchievementLeft = true;
-				} else if (level == 'Beginner') {
-					beginnerAchievementLeft = true;
-				}
-			}
-		} catch (e) { 
-			console.log(e); 
+			jsonValue = JSON.stringify(jsonValue);
+			setAchievements(jsonValue);
 		}
+		const jsonObject = JSON.parse(jsonValue);
+		const achievementsObject = jsonObject[categories[0]];
+
+		console.log(jsonObject);
+
+		const levels = ['Legendary', 'Expert', 'Beginner'];
+
+		levels.forEach(level => {
+		if (achievementsObject[level]) {
+			if (level == 'Legendary') {
+				legendaryAchievementLeft = false;
+			} else if (level == 'Expert') {
+				expertAchievementLeft = false;
+			} else if (level == 'Beginner') {
+				beginnerAchievementLeft = false;
+			}
+		} else {
+			if (level == 'Legendary') {
+				legendaryAchievementLeft = true;
+			} else if (level == 'Expert') {
+				expertAchievementLeft = true;
+			} else if (level == 'Beginner') {
+				beginnerAchievementLeft = true;
+			}
+		}
+		});
 	}
 
 	function evaluateAchievement() {
 			let percentageCorrectAnswers = correctAnswers * 100 / numberItems;
-			alreadyHaveAchievement('Legendary');
-			alreadyHaveAchievement('Expert');
-			alreadyHaveAchievement('Beginner');
+			checkAchievements();
 			if (percentageCorrectAnswers >= 90 && categories.length == 1 && legendaryAchievementLeft) {
 				navigation.navigate('Achievement', {
 					level: 'Legendary',
 					category: categories[0]
 				})
-			} else if (percentageCorrectAnswers >= 80 && categories.length == 1 && expertAchievementLeft) {
+			} else if (percentageCorrectAnswers >= 80 && percentageCorrectAnswers < 90 && categories.length == 1 && expertAchievementLeft) {
 				navigation.navigate('Achievement', {
 					level: 'Expert',
 					category: categories[0]
 				})
-			} else if (percentageCorrectAnswers >= 70 && categories.length == 1 && beginnerAchievementLeft) {
+			} else if (percentageCorrectAnswers >= 70 && percentageCorrectAnswers < 80 && categories.length == 1 && beginnerAchievementLeft) {
 				navigation.navigate('Achievement', {
 					level: 'Beginner',
 					category: categories[0]
