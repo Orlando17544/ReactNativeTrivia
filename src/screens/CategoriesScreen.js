@@ -69,7 +69,7 @@ const CategoriesScreen = ({ navigation }) => {
 			{CATEGORIES.map((category) => 
 				<TouchableOpacity key={category.name} style={{ alignItems: 'center' }} onPress={() => {navigation.navigate('Trivia', {
 					categories: [category.name]
-				})}}>
+				});}}>
 					<ImageBackground
 						source={category.image}
 						resizeMode="contain"

@@ -38,11 +38,13 @@ const HomeScreen = ({ navigation }) => {
 
 	const [profileImage, setProfileImage] = useState('');
 	const [name, setName] = useState('');
+	const [interests, setInterests] = useState([]);
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			getName();
 			getProfileImage();
+			getInterests();
 		});
 
 		return unsubscribe;
@@ -69,6 +71,19 @@ const HomeScreen = ({ navigation }) => {
 		}
 	}
 
+	const getInterests = async () => {
+		try {
+			let jsonValue = await AsyncStorage.getItem('interests');
+			jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
+			const arrayValue = Object.values(jsonValue);
+			if(arrayValue != null) {
+				setInterests(arrayValue);
+			}
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
 	return (
 		<View style={ styles.container }>
 		<ImageBackground
@@ -84,7 +99,9 @@ const HomeScreen = ({ navigation }) => {
 		<Text style={{ flex: 1, fontSize: 25, color: 'black', textAlign: 'center', fontWeight: 'bold' }}>{name != '' ? name : 'Player'}</Text>
 		</ImageBackground>
 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e5e7e2' }}>
-		<TouchableOpacity style={{ backgroundColor: '#19ba50', borderRadius: 5, paddingHorizontal: '40%', paddingVertical: '3%' }}>
+		<TouchableOpacity style={{ backgroundColor: '#19ba50', borderRadius: 5, paddingHorizontal: '40%', paddingVertical: '3%' }} onPress={() => {navigation.navigate('Trivia', {
+			categories: interests
+		});}}>
 			<Text style={{ fontSize: 18, color: 'white' }}>Play</Text>
 		</TouchableOpacity>
 		</View>

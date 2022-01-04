@@ -71,9 +71,10 @@ const WelcomeScreen = ({ navigation }) => {
 	}
 
 	const storeInterests = async (value) => {  
-		try {    
-			const jsonValue = JSON.stringify(value)    
-			await AsyncStorage.setItem('interests', jsonValue)  
+		try {   
+			const objectValue = Object.assign({}, value);
+			const jsonValue = JSON.stringify(objectValue);
+			await AsyncStorage.setItem('interests', jsonValue);
 		} catch (e) {    
 			console.log(e);
 		}
@@ -233,7 +234,7 @@ const WelcomeScreen = ({ navigation }) => {
 					style={[ styles.optionsButtons, {backgroundColor: interests.includes('Business') ? '#ffe264' : 'white', marginLeft: 10} ]}
 					onPress={() => {addRemoveInterest('Business');}}
 				>
-					<MaterialIcons name="Business" size={20} color="black" />
+					<Ionicons name="business" size={20} color="black" />
 					<Text style={ styles.textOptionsButtons }>Business</Text>
 				</TouchableOpacity>
 			</View>
@@ -245,7 +246,7 @@ const WelcomeScreen = ({ navigation }) => {
 				onPress={() => {checkAnswers()}}>
 				<Text style={{ fontSize: 20, color: 'white' }}>CONTINUE</Text>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => {navigation.navigate('Name');}}>
+			<TouchableOpacity onPress={() => {storeInterests(['Science', 'Pop_culture', 'Sports', 'Game', 'Health', 'History', 'Music', 'Religion', 'Design', 'Law', 'Animal', 'Business']); navigation.navigate('Name');}}>
 				<Text style={[ styles.text, {marginTop: '5%'} ]}>Skip</Text>
 			</TouchableOpacity>
 		</View>

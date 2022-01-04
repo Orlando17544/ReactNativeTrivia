@@ -557,7 +557,7 @@ const TriviaScreen = ({ route, navigation }) => {
 					items = [...items, ...DATA.Business];
 				}
 			});
-			numberItems = items.length
+			numberItems = items.length;
 			//To choice an image
 			let category;
 			if (categories.length == 1) {

@@ -75,7 +75,6 @@ const ProfileScreen = ({ navigation }) => {
 			if(jsonValue != null) {
 				setAchievements(jsonValue);
 			}
-			console.log(jsonValue);
 		} catch(e) {    // error reading value  
 			console.log(e);
 		}
