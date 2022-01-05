@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type {Node} from 'react';
 import {
 	StyleSheet,
@@ -21,9 +21,33 @@ import {
 	Dimensions
 } from 'react-native';
 
-const HistoryScreen = () => {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const HistoryScreen = ({ navigation }) => {
+	const [historyItems, setHistoryItems] = useState({});
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			getHistoryItems();
+		});
+
+		return unsubscribe;
+	}, [navigation])
 
 	const screenWidth = Dimensions.get('window').width;
+
+	const getHistoryItems = async () => {
+		try {
+			let jsonValue = await AsyncStorage.getItem('historyItems');
+			jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
+			if(jsonValue != null) {
+				setHistoryItems(jsonValue);
+			}
+			console.log(jsonValue);
+		} catch(e) {
+			console.log(e);
+		}
+	}
 
 	const QUESTIONS_ANSWERS = [{
 		question: 'What year was the very first model of the iPhone released?',
@@ -83,30 +107,6 @@ const HistoryScreen = () => {
 		image: require('../../assets/law.jpg')
 	}]
 
-	const Item = ({ question, answer, image }) => (
-				<>
-				<View style={{ flexDirection: 'row', marginLeft: 10, marginBottom: 5 }}>
-				<Image
-					source={image}
-					style={{ height: 100, width: 125 }}
-					resizeMode="contain"
-				/>
-				<View style={{ justifyContent: 'space-between' }}>
-					<View style={{flexDirection: 'row', width: screenWidth * 0.6 }}>
-					<Text style={{ flex: 1, fontWeight: 'bold', fontSize: 15, flexWrap: 'wrap', color: 'black' }}>{question}</Text>
-					</View>
-					<Text style={{ backgroundColor: answer == 'Correct' ? '#64bb0a' : '#e65b46' , fontWeight: 'bold', padding: 2, alignSelf: 'flex-start', left: screenWidth * 0.5, color: 'black' }}>{answer}</Text>
-				</View>
-				</View>
-				<View style={{ backgroundColor: '#808080', height: 1, width: '90%', alignSelf: 'center', marginBottom: 5 }}/>
-				</>
-	);
-
-	const renderItem = ({ item }) => (
-		<Item question={item.question} answer={item.answer} image={item.image}/>
-	);
-
-
 	return (
 		<View style={ styles.container }>
 			<ImageBackground
@@ -114,11 +114,27 @@ const HistoryScreen = () => {
 				style={{ height: '50%', width: '100%', flex: 1 }}
 				resizeMode="cover"
 			>
-			<FlatList style={{ marginTop: '20%', flex: 1 }}
-				data={QUESTIONS_ANSWERS}
-				renderItem={renderItem}
-				keyExtractor={item => item.question}
-			/>
+			{<ScrollView style={{ marginTop: '20%', flex: 1 }}>
+				{Object.keys(historyItems).map((question) =>
+					<View key={question}>
+					<View style={{ flexDirection: 'row', marginLeft: 10, marginBottom: 5 }}>
+					<Image
+						source={historyItems[question][1]}
+						style={{ height: 100, width: 125 }}
+						resizeMode="contain"
+					/>
+					<View style={{ justifyContent: 'space-between' }}>
+						<View style={{flexDirection: 'row', width: screenWidth * 0.6 }}>
+						<Text style={{ flex: 1, fontWeight: 'bold', fontSize: 15, flexWrap: 'wrap', color: 'black' }}>{question}</Text>
+						</View>
+						<Text style={{ backgroundColor: historyItems[question][0] == 'Correct' ? '#64bb0a' : '#e65b46' , fontWeight: 'bold', padding: 2, alignSelf: 'flex-start', left: screenWidth * 0.5, color: 'black' }}>{historyItems[question][0]}</Text>
+					</View>
+					</View>
+					<View style={{ backgroundColor: '#808080', height: 1, width: '90%', alignSelf: 'center', marginBottom: 5 }}/>
+					</View>
+				)}
+			</ScrollView>
+			}
 			</ImageBackground>
 			<Text style={{ textAlign: 'center', fontSize: 20, position: 'absolute', color: 'black', alignSelf: 'center', top: 5, fontWeight: 'bold' }}>History</Text>
 		</View>

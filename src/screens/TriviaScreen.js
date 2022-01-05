@@ -56,6 +56,8 @@ let beginnerAchievementLeft;
 
 let jsonValue;
 
+let imageSource;
+
 const TriviaScreen = ({ route, navigation }) => {
 	const DATA = {
 		Science: [
@@ -689,6 +691,7 @@ const TriviaScreen = ({ route, navigation }) => {
 
 	function prepareNextItem() {
 		//deleteData();
+		//deleteHistory();
 		if (numberItems == indexItem) {
 			evaluateAchievement();
 		} else {
@@ -709,6 +712,59 @@ const TriviaScreen = ({ route, navigation }) => {
 		}
 	}
 
+	const addToHistory = async (question, resultAnswer, imageSource) => {
+		if (categories.length == 1) {
+			let jsonValue = await AsyncStorage.getItem('historyItems');
+			jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
+			if (jsonValue == null) {
+				jsonValue = {};
+				jsonValue[question] = [resultAnswer, imageSource];
+			} else {
+				jsonValue[question] = [resultAnswer, imageSource];
+			}
+			jsonValue = JSON.stringify(jsonValue);
+			await AsyncStorage.setItem('historyItems', jsonValue);
+		}
+	}
+
+	const deleteHistory = async () => {
+		try {
+			await AsyncStorage.removeItem('historyItems');
+			let jsonValue = await AsyncStorage.getItem('historyItems');
+			console.log("Valor de la información: " + jsonValue);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	function getImageSource(category) {
+		if (category == 'Science') {
+			imageSource = require('../../assets/science.jpg');
+		} else if (category == 'Pop_culture') {
+			imageSource = require('../../assets/popCulture.jpg');
+		} else if (category == 'Sports') {
+			imageSource = require('../../assets/sports.jpg');
+		} else if (category == 'Game') {
+			imageSource = require('../../assets/game.jpg');
+		} else if (category == 'Health') {
+			imageSource = require('../../assets/health.jpg');
+		} else if (category == 'History') {
+			imageSource = require('../../assets/history.jpg');
+		} else if (category == 'Music') {
+			imageSource = require('../../assets/music.jpg');
+		} else if (category == 'Religion') {
+			imageSource = require('../../assets/religion.jpg');
+		} else if (category == 'Design') {
+			imageSource = require('../../assets/design.jpg');
+		} else if (category == 'Law') {
+			imageSource = require('../../assets/law.jpg');
+		} else if (category == 'Animal') {
+			imageSource = require('../../assets/animal.jpg');
+		} else if (category == 'Business') {
+			imageSource = require('../../assets/business.jpg');
+		}
+	}
+
 	return (
 		<View style={ styles.container }>
 			<Image
@@ -721,7 +777,7 @@ const TriviaScreen = ({ route, navigation }) => {
 			</View>
 			<View style={{flex: 3, marginHorizontal: 15}}>
 				{answers.map((answer) =>
-					<TouchableOpacity key={answer} style={{flex: 1, backgroundColor: userAnswer == '' ? '#c2bfb0' : answer == correctAnswer ? '#66ba0c' : answer == userAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);countCorrectAnswer(answer);}} disabled={userAnswer == '' ? false : true}>
+					<TouchableOpacity key={answer} style={{flex: 1, backgroundColor: userAnswer == '' ? '#c2bfb0' : answer == correctAnswer ? '#66ba0c' : answer == userAnswer ? '#fd6e64' : '#c2bfb0', marginBottom: 10, borderRadius: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => {setUserAnswer(answer);countCorrectAnswer(answer);getImageSource(categories[0]); let resultAnswer = answer == correctAnswer ? 'Correct' : 'Incorrect'; addToHistory(question, resultAnswer, imageSource);}} disabled={userAnswer == '' ? false : true}>
 						<Text style={{fontSize: 17, fontWeight: 'bold'}}>{answer}</Text>
 					</TouchableOpacity>
 				)}
