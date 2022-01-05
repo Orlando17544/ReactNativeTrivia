@@ -241,10 +241,6 @@ return (
 			<TouchableOpacity style={{flex: 1, backgroundColor: '#46a2ef', justifyContent: 'center', borderRadius: 10, marginBottom: 5, marginTop: 15}} onPress={() => {storeName(name);storeBio(bio);storeCountry(country);storeAge(age);storeGender(gender);storeProfileImage(profileImage);navigation.navigate('Main');}}> 
 				<Text style={{alignSelf: 'center', color: 'white', fontSize: 15, fontWeight: 'bold'}}>Save</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#1977f1', borderRadius: 10, marginVertical: 5}}> 
-				<MaterialCommunityIcons name="facebook" size={30} color='white' style={{right: screenWidth * 0.25}}/>
-				<Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>Log in</Text>
-			</TouchableOpacity>
 		</View>	
 		<TouchableOpacity style={{ position: 'absolute', top: 195, right: 145, backgroundColor: '#8d9b8a', borderRadius: 45, padding: 10 }} onPress={() => {setModalVisibleImagePicker(true);}}>
 		<Feather name="camera" size={15} color="white" />
