@@ -74,6 +74,22 @@ const ProfileScreen = ({ navigation }) => {
 			jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
 			if(jsonValue != null) {
 				setAchievements(jsonValue);
+			} else {
+				jsonValue = {
+					Science: {Legendary: false, Expert: false, Beginner: false},
+					Pop_culture: {Legendary: false, Expert: false, Beginner: false},
+					Sports: {Legendary: false, Expert: false, Beginner: false},
+					Game: {Legendary: false, Expert: false, Beginner: false},
+					Health: {Legendary: false, Expert: false, Beginner: false},
+					History: {Legendary: false, Expert: false, Beginner: false},
+					Music: {Legendary: false, Expert: false, Beginner: false},
+					Religion: {Legendary: false, Expert: false, Beginner: false},
+					Design: {Legendary: false, Expert: false, Beginner: false},
+					Law: {Legendary: false, Expert: false, Beginner: false},
+					Animal: {Legendary: false, Expert: false, Beginner: false},
+					Business: {Legendary: false, Expert: false, Beginner: false}
+				}
+				setAchievements(jsonValue);
 			}
 		} catch(e) {    // error reading value  
 			console.log(e);
