@@ -30,8 +30,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 SplashScreen.hide();
 
-/*
-
 var Sound = require('react-native-sound');
 
 Sound.setCategory('Playback');
@@ -53,8 +51,6 @@ ocarina.setVolume(50);
 
 // To loop the song
 ocarina.setNumberOfLoops(100);
-
-*/
 
 const WelcomeScreen = ({ navigation }) => {
 	const [gender, setGender] = useState('');
