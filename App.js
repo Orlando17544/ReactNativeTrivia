@@ -36,6 +36,7 @@ const App = () => {
 	const [initialScreen, setInitialScreen] = useState(null);
 
 	useEffect(() => {
+		//deleteInitialScreenInfo();
 		getInitialScreen();
 	}, [])
 
