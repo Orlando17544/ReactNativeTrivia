@@ -38,6 +38,14 @@ const NameScreen = ({ navigation }) => {
 			navigation.navigate('Main');
 	}
 
+	const changeInitialScreen = async () => {
+		try {
+			await AsyncStorage.setItem('initialScreen', 'Main');
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
 	return (
 		<View style={ styles.container }>
 		<ImageBackground
@@ -62,10 +70,10 @@ const NameScreen = ({ navigation }) => {
 		<View style={{ alignItems: 'center' }}>
 			<TouchableOpacity
 				style={{ backgroundColor: '#65b90b', paddingHorizontal: '30%' , paddingVertical: '3%', borderRadius: 5 }}
-				onPress={() => {checkAnswer();}}>
+				onPress={() => {checkAnswer();changeInitialScreen();}}>
 				<Text style={{ fontSize: 20, color: 'white' }}>CONTINUE</Text>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => {navigation.navigate('Main');}}>
+			<TouchableOpacity onPress={() => {navigation.navigate('Main');changeInitialScreen();}}>
 				<Text style={[ styles.text, {marginTop: '5%'} ]}>Skip</Text>
 			</TouchableOpacity>
 		</View>

@@ -6,12 +6,13 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Node } from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
+	ActivityIndicator
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -24,13 +25,47 @@ import EditProfileScreen from './src/screens/EditProfileScreen.js';
 import TriviaScreen from './src/screens/TriviaScreen.js';
 import AchievementScreen from './src/screens/AchievementScreen.js';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+let value;
 
-	return (
-		<NavigationContainer>
-		<Stack.Navigator initialRouteName="Welcome" 
+const App = () => {
+	const [loading, setLoading] = useState(true);
+	const [initialScreen, setInitialScreen] = useState(null);
+
+	useEffect(() => {
+		getInitialScreen();
+	}, [])
+
+	const getInitialScreen = async () => {
+
+		let value = await AsyncStorage.getItem('initialScreen');
+
+		if (value == 'Main') {
+			setInitialScreen('Main');
+		} else {
+			setInitialScreen('Welcome');
+		}
+		setLoading(false);
+	}
+
+	function deleteInitialScreenInfo() {
+		try {
+			AsyncStorage.removeItem('initialScreen');
+			let jsonValue = AsyncStorage.getItem('initialScreen');
+			console.log(jsonValue);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	if (loading) {
+		return <ActivityIndicator/>
+	} else {
+		return <NavigationContainer>
+		<Stack.Navigator initialRouteName={initialScreen}
 		screenOptions={{
 			headerShown: false
 		}}
@@ -43,7 +78,8 @@ const App = () => {
 		<Stack.Screen name="Name" component={NameScreen} />
 		</Stack.Navigator>
 		</NavigationContainer>
-	);
+	}
+
 };
 
 export default App;
