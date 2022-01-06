@@ -1,6 +1,6 @@
 # ReactNativeTrivia
 
-A react native app to test your knowledge (It's not finished yet)
+A react native app to test your knowledge.
 
 ![1](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/1.png)
 
