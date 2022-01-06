@@ -16,8 +16,10 @@ A react native app to test your knowledge (It's not finished yet)
 
 ![7](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/7.png)
 
-![8c](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/8c.png)
+![8d](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/8d.png)
 
 ![9](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/9.png)
 
 ![10](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/10.png)
+
+![11](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/11.png)
