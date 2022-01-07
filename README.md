@@ -23,3 +23,7 @@ A react native app to test your knowledge.
 ![10](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/10.png)
 
 ![11](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/11.png)
+
+## Video to show
+
+![demonstration](https://github.com/Orlando17544/ReactNativeTrivia/blob/main/demonstration.mp4)
