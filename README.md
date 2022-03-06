@@ -1,4 +1,4 @@
-# ReactNativeTrivia
+# Trivia
 
 A react native app to test your knowledge.
 
