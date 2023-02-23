@@ -30,8 +30,12 @@ Create an application to test the knowledge of the users though questions. The u
 - React 17.0.2
 - React Native: 0.66.3
 - Javascript
-- Axios
-- Async Storage
+- Async Storage: 1.15.14
+
+## Tools
+- Vim 8.2.4174
+- GitHub 
+- Git 2.30.2
 
 ## Install
 
